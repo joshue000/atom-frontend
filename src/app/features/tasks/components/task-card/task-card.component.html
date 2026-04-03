@@ -1,0 +1,44 @@
+<mat-card [class.completed]="task.completed" class="task-card">
+  <mat-card-content class="task-content">
+    <div class="task-main">
+      <mat-checkbox
+        [checked]="task.completed"
+        [attr.aria-label]="'Mark ' + task.title + ' as ' + (task.completed ? 'pending' : 'completed')"
+        (change)="toggleComplete.emit(task)"
+        color="primary"
+      ></mat-checkbox>
+
+      <div class="task-info">
+        <h3 class="task-title" [class.completed-text]="task.completed">
+          {{ task.title }}
+        </h3>
+        @if (task.description) {
+          <p class="task-description">{{ task.description }}</p>
+        }
+        <span class="task-date" aria-label="Created on">
+          {{ task.createdAt | date: 'MMM d, y, h:mm a' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="task-actions" role="group" [attr.aria-label]="'Actions for ' + task.title">
+      <button
+        mat-icon-button
+        (click)="editTask.emit(task)"
+        matTooltip="Edit task"
+        aria-label="Edit task"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="deleteTask.emit(task)"
+        matTooltip="Delete task"
+        aria-label="Delete task"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

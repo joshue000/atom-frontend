@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Edit Task</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="onSave()" aria-label="Edit task form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" aria-label="Task title" />
+      @if (form.controls.title.hasError('required') && form.controls.title.touched) {
+        <mat-error>Title is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        rows="3"
+        aria-label="Task description"
+      ></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close aria-label="Cancel">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="form.invalid"
+    (click)="onSave()"
+    aria-label="Save changes"
+  >
+    Save
+  </button>
+</mat-dialog-actions>
+
+<style>
+  .full-width { width: 100%; }
+  mat-dialog-content { min-width: 320px; }
+</style>
