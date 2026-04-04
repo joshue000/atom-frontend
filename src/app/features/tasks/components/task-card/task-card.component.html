@@ -9,9 +9,14 @@
       ></mat-checkbox>
 
       <div class="task-info">
-        <h3 class="task-title" [class.completed-text]="task.completed">
-          {{ task.title }}
-        </h3>
+        <div class="task-title-row">
+          <h3 class="task-title" [class.completed-text]="task.completed">
+            {{ task.title }}
+          </h3>
+          <span class="status-badge" [class.completed]="task.completed">
+            {{ task.completed ? 'Completed' : 'Pending' }}
+          </span>
+        </div>
         @if (task.description) {
           <p class="task-description">{{ task.description }}</p>
         }

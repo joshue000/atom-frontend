@@ -1,24 +1,17 @@
 .task-form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 4px;
   padding: 16px;
   background: var(--mat-sys-surface-container);
   border-radius: 8px;
 }
 
-.title-field {
-  flex: 2 1 200px;
-  min-width: 0;
-}
-
+.title-field,
 .description-field {
-  flex: 3 1 280px;
-  min-width: 0;
+  width: 100%;
 }
 
 button[type='submit'] {
-  height: 56px;
-  white-space: nowrap;
+  align-self: flex-end;
 }

@@ -30,6 +30,13 @@
   gap: 4px;
 }
 
+.task-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .task-title {
   margin: 0;
   font-size: 1rem;
@@ -39,6 +46,23 @@
   &.completed-text {
     text-decoration: line-through;
     color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-color: #fff3e0;
+  color: #e65100;
+
+  &.completed {
+    background-color: #e8f5e9;
+    color: #2e7d32;
   }
 }
 
