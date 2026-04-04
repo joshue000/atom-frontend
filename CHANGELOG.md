@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.2
+**Date:** 2026-04-04
+**Description:** Added "Create task" title to the task form. Added a real-time search bar to the task list that filters tasks by title or description using a signal + combineLatest. Includes a clear button and distinct empty states for "no tasks" vs "no results".
+
 ## 1.0.1
 **Date:** 2026-04-04
 **Description:** App logs a welcome message with the current version to the console on startup.

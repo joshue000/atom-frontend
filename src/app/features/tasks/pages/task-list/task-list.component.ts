@@ -1,9 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { combineLatest, map } from 'rxjs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -32,6 +36,8 @@ import { Task, CreateTaskPayload, UpdateTaskPayload } from '../../../../core/mod
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatProgressSpinnerModule,
     MatDividerModule,
     MatTooltipModule,
@@ -48,8 +54,23 @@ export class TaskListComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
 
-  readonly tasks$ = this.taskService.tasks$;
   readonly loading = signal(true);
+  readonly searchTerm = signal('');
+
+  readonly filteredTasks$ = combineLatest([
+    this.taskService.tasks$,
+    toObservable(this.searchTerm),
+  ]).pipe(
+    map(([tasks, term]) => {
+      const normalized = term.trim().toLowerCase();
+      if (!normalized) return tasks;
+      return tasks.filter(
+        (t) =>
+          t.title.toLowerCase().includes(normalized) ||
+          t.description.toLowerCase().includes(normalized),
+      );
+    }),
+  );
 
   ngOnInit(): void {
     this.taskService.loadTasks().subscribe({
@@ -119,6 +140,10 @@ export class TaskListComponent implements OnInit {
         error: () => this.snackBar.open('Failed to delete task.', 'Close', { duration: 4000 }),
       });
     });
+  }
+
+  onSearch(event: Event): void {
+    this.searchTerm.set((event.target as HTMLInputElement).value);
   }
 
   onLogout(): void {

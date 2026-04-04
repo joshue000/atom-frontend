@@ -13,17 +13,41 @@
   <mat-divider></mat-divider>
 
   <section aria-label="Task list" class="list-section">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search tasks</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input
+        matInput
+        [value]="searchTerm()"
+        (input)="onSearch($event)"
+        placeholder="Search by title or description..."
+        aria-label="Search tasks"
+      />
+      @if (searchTerm()) {
+        <button matSuffix mat-icon-button (click)="searchTerm.set('')" aria-label="Clear search">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+
     @if (loading()) {
       <div class="loading-state" role="status" aria-label="Loading tasks">
         <mat-spinner diameter="40"></mat-spinner>
       </div>
     } @else {
-      @if (tasks$ | async; as tasks) {
+      @if (filteredTasks$ | async; as tasks) {
         @if (tasks.length === 0) {
-          <div class="empty-state" role="status">
-            <mat-icon aria-hidden="true">task_alt</mat-icon>
-            <p>No tasks yet. Add one above!</p>
-          </div>
+          @if (searchTerm()) {
+            <div class="empty-state" role="status">
+              <mat-icon aria-hidden="true">search_off</mat-icon>
+              <p>No tasks match your search.</p>
+            </div>
+          } @else {
+            <div class="empty-state" role="status">
+              <mat-icon aria-hidden="true">task_alt</mat-icon>
+              <p>No tasks yet. Add one above!</p>
+            </div>
+          }
         } @else {
           <ul class="task-list" aria-label="Tasks">
             @for (task of tasks; track task.id) {
