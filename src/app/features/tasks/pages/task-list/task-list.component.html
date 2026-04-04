@@ -70,4 +70,17 @@
       }
     }
   </section>
+
+  @if (metadata(); as meta) {
+    @if (meta.numberOfPages > 1) {
+      <div class="pagination-area">
+        <mat-divider></mat-divider>
+        <app-pagination
+          [page]="currentPage()"
+          [numberOfPages]="meta.numberOfPages"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </div>
+    }
+  }
 </main>

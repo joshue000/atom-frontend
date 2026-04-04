@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { BehaviorSubject } from 'rxjs';
 import { TaskService } from './task.service';
 import { StorageService } from '../../../core/services/storage.service';
-import { Task } from '../../../core/models/task.model';
+import { Task, PaginatedResponse } from '../../../core/models/task.model';
 import { environment } from '../../../../environments/environment';
 
 describe('TaskService', () => {
@@ -21,6 +21,11 @@ describe('TaskService', () => {
     completed: false,
     createdAt: '2024-01-01T00:00:00.000Z',
     updatedAt: '2024-01-01T00:00:00.000Z',
+  };
+
+  const mockPaginatedResponse: PaginatedResponse<Task> = {
+    metadata: { page: 1, numberOfPages: 1, limit: 5, offset: 0, total: 1 },
+    data: [mockTask],
   };
 
   beforeEach(() => {
@@ -43,36 +48,48 @@ describe('TaskService', () => {
   });
 
   describe('loadTasks', () => {
-    it('should GET tasks and update tasks$ observable', () => {
-      service.loadTasks().subscribe();
+    it('should GET tasks with pagination params and update tasks$', () => {
+      service.loadTasks(1, 5).subscribe((res) => {
+        expect(res.metadata.total).toBe(1);
+        expect(res.data).toEqual([mockTask]);
+      });
 
-      const req = httpMock.expectOne(`${baseUrl}?userId=user-1`);
+      const req = httpMock.expectOne(`${baseUrl}?userId=user-1&limit=5&offset=0`);
       expect(req.request.method).toBe('GET');
-      req.flush([mockTask]);
+      req.flush(mockPaginatedResponse);
 
       service.tasks$.subscribe((tasks) => {
         expect(tasks).toEqual([mockTask]);
       });
     });
+
+    it('should calculate offset from page number', () => {
+      service.loadTasks(3, 5).subscribe();
+
+      const req = httpMock.expectOne(`${baseUrl}?userId=user-1&limit=5&offset=10`);
+      expect(req.request.method).toBe('GET');
+      req.flush({
+        ...mockPaginatedResponse,
+        metadata: { ...mockPaginatedResponse.metadata, page: 3, offset: 10 },
+      });
+    });
   });
 
   describe('createTask', () => {
-    it('should POST task and prepend it to tasks$', () => {
-      service.createTask({ userId: 'user-1', title: 'New', description: '' }).subscribe();
+    it('should POST task and return it', () => {
+      service.createTask({ userId: 'user-1', title: 'New', description: '' }).subscribe((task) => {
+        expect(task).toEqual(mockTask);
+      });
 
       const req = httpMock.expectOne(baseUrl);
       expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual({ userId: 'user-1', title: 'New', description: '' });
       req.flush(mockTask);
-
-      service.tasks$.subscribe((tasks) => {
-        expect(tasks[0]).toEqual(mockTask);
-      });
     });
   });
 
   describe('updateTask', () => {
     it('should PUT task and update the task in tasks$', () => {
-      // Pre-populate the internal state
       (service as unknown as { _tasks: BehaviorSubject<Task[]> })._tasks.next([mockTask]);
 
       const updated = { ...mockTask, title: 'Updated' };
@@ -89,18 +106,14 @@ describe('TaskService', () => {
   });
 
   describe('deleteTask', () => {
-    it('should DELETE task and remove it from tasks$', () => {
-      (service as unknown as { _tasks: BehaviorSubject<Task[]> })._tasks.next([mockTask]);
-
-      service.deleteTask('task-1').subscribe();
+    it('should DELETE task and return void', () => {
+      service.deleteTask('task-1').subscribe((result) => {
+        expect(result).toBeNull();
+      });
 
       const req = httpMock.expectOne(`${baseUrl}/task-1`);
       expect(req.request.method).toBe('DELETE');
       req.flush(null);
-
-      service.tasks$.subscribe((tasks) => {
-        expect(tasks).toEqual([]);
-      });
     });
   });
 });

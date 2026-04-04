@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.4
+**Date:** 2026-04-04
+**Description:** Added pagination feature. TaskService now sends limit and offset params and parses the paginated response. New PaginationComponent (standalone) with prev/next buttons and numbered page buttons. On desktop shows first, last, and sibling pages with ellipsis gaps. On mobile hides all numbers and shows only prev/ellipsis/next. Pagination is pinned below the task list and not affected by the vertical scroll. Create and delete operations reload the list to keep pagination state consistent.
+
 ## 1.0.3
 **Date:** 2026-04-04
 **Description:** Converted the task form into a collapsible accordion using mat-expansion-panel, expanded by default. Fixed the search bar to stay pinned above the task list. Task list now scrolls independently without growing the page beyond the viewport height.

@@ -1,0 +1,43 @@
+<nav class="pagination" aria-label="Task list pagination">
+  <button
+    mat-icon-button
+    class="nav-btn"
+    [disabled]="page === 1"
+    (click)="goTo(page - 1)"
+    aria-label="Previous page"
+  >
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+
+  <div class="page-numbers" role="list">
+    @for (item of pages; track $index) {
+      @if (item === '...') {
+        <span class="ellipsis" aria-hidden="true">…</span>
+      } @else {
+        <button
+          mat-flat-button
+          [color]="item === page ? 'primary' : undefined"
+          class="page-btn"
+          (click)="goTo(item)"
+          [attr.aria-label]="'Page ' + item"
+          [attr.aria-current]="item === page ? 'page' : null"
+          role="listitem"
+        >
+          {{ item }}
+        </button>
+      }
+    }
+  </div>
+
+  <span class="mobile-ellipsis" aria-hidden="true">…</span>
+
+  <button
+    mat-icon-button
+    class="nav-btn"
+    [disabled]="page === numberOfPages"
+    (click)="goTo(page + 1)"
+    aria-label="Next page"
+  >
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</nav>

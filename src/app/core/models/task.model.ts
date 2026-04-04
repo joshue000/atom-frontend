@@ -1,3 +1,16 @@
+export interface PaginationMetadata {
+  page: number;
+  numberOfPages: number;
+  limit: number;
+  offset: number;
+  total: number;
+}
+
+export interface PaginatedResponse<T> {
+  metadata: PaginationMetadata;
+  data: T[];
+}
+
 export interface Task {
   id: string;
   userId: string;

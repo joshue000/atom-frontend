@@ -18,6 +18,7 @@ import { TaskService } from '../../services/task.service';
 import { StorageService } from '../../../../core/services/storage.service';
 import { TaskFormComponent } from '../../components/task-form/task-form.component';
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import {
   TaskEditDialogComponent,
   TaskEditDialogData,
@@ -26,7 +27,13 @@ import {
   ConfirmDialogComponent,
   ConfirmDialogData,
 } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
-import { Task, CreateTaskPayload, UpdateTaskPayload } from '../../../../core/models/task.model';
+import {
+  Task,
+  CreateTaskPayload,
+  UpdateTaskPayload,
+  PaginationMetadata,
+} from '../../../../core/models/task.model';
+import { PAGINATION } from '../../../../core/constants/pagination.constants';
 
 @Component({
   selector: 'app-task-list',
@@ -45,6 +52,7 @@ import { Task, CreateTaskPayload, UpdateTaskPayload } from '../../../../core/mod
     MatTooltipModule,
     TaskFormComponent,
     TaskCardComponent,
+    PaginationComponent,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -58,6 +66,8 @@ export class TaskListComponent implements OnInit {
 
   readonly loading = signal(true);
   readonly searchTerm = signal('');
+  readonly currentPage = signal(1);
+  readonly metadata = signal<PaginationMetadata | null>(null);
 
   readonly filteredTasks$ = combineLatest([
     this.taskService.tasks$,
@@ -75,8 +85,17 @@ export class TaskListComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    this.taskService.loadTasks().subscribe({
-      next: () => this.loading.set(false),
+    this.loadPage(1);
+  }
+
+  private loadPage(page: number): void {
+    this.loading.set(true);
+    this.taskService.loadTasks(page, PAGINATION.DEFAULT_LIMIT).subscribe({
+      next: (res) => {
+        this.currentPage.set(res.metadata.page);
+        this.metadata.set(res.metadata);
+        this.loading.set(false);
+      },
       error: () => {
         this.loading.set(false);
         this.snackBar.open('Failed to load tasks.', 'Close', { duration: 4000 });
@@ -84,8 +103,13 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  trackById(_index: number, task: Task): string {
-    return task.id;
+  onPageChange(page: number): void {
+    this.searchTerm.set('');
+    this.loadPage(page);
+  }
+
+  onSearch(event: Event): void {
+    this.searchTerm.set((event.target as HTMLInputElement).value);
   }
 
   onAddTask(payload: Omit<CreateTaskPayload, 'userId'>, formRef: TaskFormComponent): void {
@@ -97,6 +121,7 @@ export class TaskListComponent implements OnInit {
         formRef.reset();
         formRef.setLoading(false);
         this.snackBar.open('Task added!', undefined, { duration: 2000 });
+        this.loadPage(1);
       },
       error: () => {
         formRef.setLoading(false);
@@ -113,10 +138,7 @@ export class TaskListComponent implements OnInit {
 
   onEditTask(task: Task): void {
     const data: TaskEditDialogData = { task };
-    const ref = this.dialog.open(TaskEditDialogComponent, {
-      data,
-      width: '480px',
-    });
+    const ref = this.dialog.open(TaskEditDialogComponent, { data, width: '480px' });
 
     ref.afterClosed().subscribe((payload: UpdateTaskPayload | undefined) => {
       if (!payload) return;
@@ -138,14 +160,13 @@ export class TaskListComponent implements OnInit {
     ref.afterClosed().subscribe((confirmed: boolean | undefined) => {
       if (!confirmed) return;
       this.taskService.deleteTask(task.id).subscribe({
-        next: () => this.snackBar.open('Task deleted.', undefined, { duration: 2000 }),
+        next: () => {
+          this.snackBar.open('Task deleted.', undefined, { duration: 2000 });
+          this.loadPage(this.currentPage());
+        },
         error: () => this.snackBar.open('Failed to delete task.', 'Close', { duration: 4000 }),
       });
     });
-  }
-
-  onSearch(event: Event): void {
-    this.searchTerm.set((event.target as HTMLInputElement).value);
   }
 
   onLogout(): void {
