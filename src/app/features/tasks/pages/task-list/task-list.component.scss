@@ -1,6 +1,12 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
 .toolbar {
-  position: sticky;
-  top: 0;
+  flex-shrink: 0;
   z-index: 100;
 
   .toolbar-title {
@@ -11,17 +17,32 @@
 }
 
 .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 0 16px;
+}
+
+.static-area {
+  flex-shrink: 0;
+  padding-top: 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.form-section,
-.list-section {
+.form-panel {
   width: 100%;
+}
+
+.list-section {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 0 24px;
 }
 
 .search-field {

@@ -6,13 +6,14 @@
 </mat-toolbar>
 
 <main class="content" role="main">
-  <section aria-label="Add new task" class="form-section">
-    <app-task-form #taskForm (taskSubmit)="onAddTask($event, taskForm)"></app-task-form>
-  </section>
+  <div class="static-area">
+    <mat-expansion-panel expanded class="form-panel" aria-label="Add new task">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Create task</mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-task-form #taskForm (taskSubmit)="onAddTask($event, taskForm)"></app-task-form>
+    </mat-expansion-panel>
 
-  <mat-divider></mat-divider>
-
-  <section aria-label="Task list" class="list-section">
     <mat-form-field appearance="outline" class="search-field">
       <mat-label>Search tasks</mat-label>
       <mat-icon matPrefix>search</mat-icon>
@@ -30,6 +31,10 @@
       }
     </mat-form-field>
 
+    <mat-divider></mat-divider>
+  </div>
+
+  <section aria-label="Task list" class="list-section">
     @if (loading()) {
       <div class="loading-state" role="status" aria-label="Loading tasks">
         <mat-spinner diameter="40"></mat-spinner>

@@ -1,17 +1,7 @@
-.form-title {
-  margin: 0 0 8px;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--mat-sys-on-surface);
-}
-
 .task-form {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 16px;
-  background: var(--mat-sys-surface-container);
-  border-radius: 8px;
 }
 
 .title-field,

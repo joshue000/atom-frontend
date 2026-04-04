@@ -6,6 +6,7 @@ import { combineLatest, map } from 'rxjs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
@@ -36,6 +37,7 @@ import { Task, CreateTaskPayload, UpdateTaskPayload } from '../../../../core/mod
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
