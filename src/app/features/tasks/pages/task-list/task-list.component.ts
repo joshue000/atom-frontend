@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -71,10 +65,7 @@ export class TaskListComponent implements OnInit {
     return task.id;
   }
 
-  onAddTask(
-    payload: Omit<CreateTaskPayload, 'userId'>,
-    formRef: TaskFormComponent
-  ): void {
+  onAddTask(payload: Omit<CreateTaskPayload, 'userId'>, formRef: TaskFormComponent): void {
     const userId = this.storageService.getUserId()!;
     formRef.setLoading(true);
 
@@ -92,12 +83,9 @@ export class TaskListComponent implements OnInit {
   }
 
   onToggleComplete(task: Task): void {
-    this.taskService
-      .updateTask(task.id, { completed: !task.completed })
-      .subscribe({
-        error: () =>
-          this.snackBar.open('Failed to update task.', 'Close', { duration: 4000 }),
-      });
+    this.taskService.updateTask(task.id, { completed: !task.completed }).subscribe({
+      error: () => this.snackBar.open('Failed to update task.', 'Close', { duration: 4000 }),
+    });
   }
 
   onEditTask(task: Task): void {

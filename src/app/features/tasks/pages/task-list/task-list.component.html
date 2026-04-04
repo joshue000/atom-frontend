@@ -1,21 +1,13 @@
 <mat-toolbar color="primary" class="toolbar">
   <span class="toolbar-title">My Tasks</span>
-  <button
-    mat-icon-button
-    (click)="onLogout()"
-    matTooltip="Sign out"
-    aria-label="Sign out"
-  >
+  <button mat-icon-button (click)="onLogout()" matTooltip="Sign out" aria-label="Sign out">
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
 
 <main class="content" role="main">
   <section aria-label="Add new task" class="form-section">
-    <app-task-form
-      #taskForm
-      (taskSubmit)="onAddTask($event, taskForm)"
-    ></app-task-form>
+    <app-task-form #taskForm (taskSubmit)="onAddTask($event, taskForm)"></app-task-form>
   </section>
 
   <mat-divider></mat-divider>

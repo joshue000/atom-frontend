@@ -3,7 +3,9 @@
     <div class="task-main">
       <mat-checkbox
         [checked]="task.completed"
-        [attr.aria-label]="'Mark ' + task.title + ' as ' + (task.completed ? 'pending' : 'completed')"
+        [attr.aria-label]="
+          'Mark ' + task.title + ' as ' + (task.completed ? 'pending' : 'completed')
+        "
         (change)="toggleComplete.emit(task)"
         color="primary"
       ></mat-checkbox>

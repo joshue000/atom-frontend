@@ -3,11 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Task, UpdateTaskPayload } from '../../../../core/models/task.model';
 
 export interface TaskEditDialogData {
@@ -37,7 +33,7 @@ export class TaskEditDialogComponent {
 
   constructor(
     public readonly dialogRef: MatDialogRef<TaskEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public readonly data: TaskEditDialogData
+    @Inject(MAT_DIALOG_DATA) public readonly data: TaskEditDialogData,
   ) {}
 
   onSave(): void {

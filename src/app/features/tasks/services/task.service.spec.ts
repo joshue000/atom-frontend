@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { BehaviorSubject } from 'rxjs';
 import { TaskService } from './task.service';
 import { StorageService } from '../../../core/services/storage.service';
 import { Task } from '../../../core/models/task.model';
@@ -75,7 +73,7 @@ describe('TaskService', () => {
   describe('updateTask', () => {
     it('should PUT task and update the task in tasks$', () => {
       // Pre-populate the internal state
-      (service as any)._tasks.next([mockTask]);
+      (service as unknown as { _tasks: BehaviorSubject<Task[]> })._tasks.next([mockTask]);
 
       const updated = { ...mockTask, title: 'Updated' };
       service.updateTask('task-1', { title: 'Updated' }).subscribe();
@@ -92,7 +90,7 @@ describe('TaskService', () => {
 
   describe('deleteTask', () => {
     it('should DELETE task and remove it from tasks$', () => {
-      (service as any)._tasks.next([mockTask]);
+      (service as unknown as { _tasks: BehaviorSubject<Task[]> })._tasks.next([mockTask]);
 
       service.deleteTask('task-1').subscribe();
 

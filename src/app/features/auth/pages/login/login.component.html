@@ -6,11 +6,7 @@
     </mat-card-header>
 
     <mat-card-content>
-      <form
-        [formGroup]="form"
-        (ngSubmit)="onSubmit()"
-        aria-label="Login form"
-      >
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" aria-label="Login form">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email address</mat-label>
           <input
@@ -20,7 +16,9 @@
             placeholder="you@example.com"
             autocomplete="email"
             aria-label="Email address"
-            [attr.aria-describedby]="form.controls.email.invalid && form.controls.email.touched ? 'email-error' : null"
+            [attr.aria-describedby]="
+              form.controls.email.invalid && form.controls.email.touched ? 'email-error' : null
+            "
           />
           @if (form.controls.email.hasError('required') && form.controls.email.touched) {
             <mat-error id="email-error" role="alert">Email is required</mat-error>

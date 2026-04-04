@@ -1,9 +1,4 @@
-<form
-  [formGroup]="form"
-  (ngSubmit)="onSubmit()"
-  class="task-form"
-  aria-label="Add new task"
->
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="task-form" aria-label="Add new task">
   <mat-form-field appearance="outline" class="title-field">
     <mat-label>Task title</mat-label>
     <input

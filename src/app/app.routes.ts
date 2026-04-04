@@ -5,16 +5,14 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () =>
-      import('./features/auth/pages/login/login.component').then(
-        (m) => m.LoginComponent
-      ),
+      import('./features/auth/pages/login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'tasks',
     canActivate: [authGuard],
     loadComponent: () =>
       import('./features/tasks/pages/task-list/task-list.component').then(
-        (m) => m.TaskListComponent
+        (m) => m.TaskListComponent,
       ),
   },
   {

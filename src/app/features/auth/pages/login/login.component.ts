@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -68,7 +63,9 @@ export class LoginComponent {
         if (err.status === 404) {
           this.openCreateUserDialog(email);
         } else {
-          this.snackBar.open('Something went wrong. Please try again.', 'Close', { duration: 4000 });
+          this.snackBar.open('Something went wrong. Please try again.', 'Close', {
+            duration: 4000,
+          });
         }
       },
     });
@@ -99,7 +96,9 @@ export class LoginComponent {
       },
       error: () => {
         this.loading.set(false);
-        this.snackBar.open('Failed to create account. Please try again.', 'Close', { duration: 4000 });
+        this.snackBar.open('Failed to create account. Please try again.', 'Close', {
+          duration: 4000,
+        });
       },
     });
   }
