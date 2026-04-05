@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.8
+**Date:** 2026-04-05
+**Description:** Fixed dark mode input highlight contrast. Replaced indigo primary palette with light-blue and pink accent with cyan in the dark theme definition. Indigo is a mid-dark color that blends into dark backgrounds; light-blue and cyan are high-contrast on dark surfaces.
+
 ## 1.0.7
 **Date:** 2026-04-05
 **Description:** Added Docker support for local development. New Dockerfile runs ng serve with --host 0.0.0.0 and --poll 2000 for hot reload inside the container. Added docker build and serve configurations to angular.json. New environment.docker.ts points apiUrl to http://localhost:3000/api (the local functions container).
