@@ -71,10 +71,16 @@
   font-size: 0.9rem;
 }
 
-.coming-soon {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  opacity: 0.6;
-  text-transform: uppercase;
+.lang-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.lang-btn {
+  min-width: 40px;
+  height: 32px;
+  padding: 0 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 32px;
 }

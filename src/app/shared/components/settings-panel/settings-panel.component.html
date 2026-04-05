@@ -1,27 +1,46 @@
 <div class="settings-wrapper">
   @if (open()) {
-    <div class="settings-panel" role="dialog" aria-label="Settings">
-      <p class="panel-title">Settings</p>
+    <div class="settings-panel" role="dialog" [attr.aria-label]="i18n().settings.title">
+      <p class="panel-title">{{ i18n().settings.title }}</p>
 
       <mat-divider></mat-divider>
 
       <div class="setting-row">
         <mat-icon class="setting-icon">dark_mode</mat-icon>
-        <span class="setting-label">Dark mode</span>
+        <span class="setting-label">{{ i18n().settings.darkMode }}</span>
         <mat-slide-toggle
           [checked]="themeService.isDark()"
           (change)="themeService.toggle()"
-          aria-label="Toggle dark mode"
+          [attr.aria-label]="i18n().settings.darkMode"
           color="primary"
         ></mat-slide-toggle>
       </div>
 
       <mat-divider></mat-divider>
 
-      <div class="setting-row setting-row--disabled" aria-disabled="true">
+      <div class="setting-row">
         <mat-icon class="setting-icon">language</mat-icon>
-        <span class="setting-label">Language</span>
-        <span class="coming-soon">Coming soon</span>
+        <span class="setting-label">{{ i18n().settings.language }}</span>
+        <div class="lang-buttons">
+          <button
+            mat-flat-button
+            [color]="i18nService.currentLang() === 'en' ? 'primary' : undefined"
+            class="lang-btn"
+            (click)="setLang('en')"
+            aria-label="English"
+          >
+            EN
+          </button>
+          <button
+            mat-flat-button
+            [color]="i18nService.currentLang() === 'es' ? 'primary' : undefined"
+            class="lang-btn"
+            (click)="setLang('es')"
+            aria-label="Español"
+          >
+            ES
+          </button>
+        </div>
       </div>
     </div>
   }
@@ -31,8 +50,8 @@
     color="primary"
     class="fab"
     (click)="toggle()"
-    [matTooltip]="open() ? 'Close settings' : 'Settings'"
-    aria-label="Settings"
+    [matTooltip]="open() ? i18n().settings.close : i18n().settings.open"
+    [attr.aria-label]="open() ? i18n().settings.close : i18n().settings.open"
   >
     <mat-icon>{{ open() ? 'close' : 'settings' }}</mat-icon>
   </button>

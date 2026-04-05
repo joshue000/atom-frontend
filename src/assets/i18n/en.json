@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "ATOM Task Manager"
+  },
+  "auth": {
+    "login": {
+      "title": "Task Manager",
+      "subtitle": "Enter your email to continue",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "continue": "Continue"
+    },
+    "createUserDialog": {
+      "title": "New Account",
+      "noAccountFound": "No account found for",
+      "createQuestion": "Would you like to create a new account?",
+      "cancel": "Cancel",
+      "createAccount": "Create Account"
+    },
+    "errors": {
+      "somethingWentWrong": "Something went wrong. Please try again.",
+      "failedToCreate": "Failed to create account. Please try again.",
+      "close": "Close"
+    }
+  },
+  "tasks": {
+    "list": {
+      "title": "My Tasks",
+      "signOut": "Sign out",
+      "searchLabel": "Search tasks",
+      "searchPlaceholder": "Search by title or description...",
+      "clearSearch": "Clear search",
+      "noResults": "No tasks match your search.",
+      "empty": "No tasks yet. Add one above!",
+      "loadError": "Failed to load tasks.",
+      "close": "Close"
+    },
+    "form": {
+      "panelTitle": "Create task",
+      "titleLabel": "Task title",
+      "titlePlaceholder": "What needs to be done?",
+      "titleRequired": "Title is required",
+      "titleMaxLength": "Title cannot exceed 100 characters",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Optional description...",
+      "descriptionMaxLength": "Description cannot exceed 500 characters",
+      "addButton": "Add Task",
+      "addSuccess": "Task added!",
+      "addError": "Failed to add task."
+    },
+    "card": {
+      "markPrefix": "Mark",
+      "markAsCompleted": "as completed",
+      "markAsPending": "as pending",
+      "statusCompleted": "Completed",
+      "statusPending": "Pending",
+      "editTooltip": "Edit task",
+      "deleteTooltip": "Delete task",
+      "updateSuccess": "Task updated!",
+      "updateError": "Failed to update task."
+    },
+    "editDialog": {
+      "title": "Edit Task",
+      "titleLabel": "Title",
+      "titleRequired": "Title is required",
+      "descriptionLabel": "Description",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "deleteDialog": {
+      "title": "Delete Task",
+      "message": "Are you sure you want to delete \"{{title}}\"?",
+      "confirmLabel": "Delete",
+      "deleteSuccess": "Task deleted.",
+      "deleteError": "Failed to delete task."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "darkMode": "Dark mode",
+    "language": "Language",
+    "open": "Settings",
+    "close": "Close settings"
+  },
+  "pagination": {
+    "label": "Task list pagination",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  }
+}

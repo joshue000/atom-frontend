@@ -1,31 +1,36 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="task-form" aria-label="Add new task">
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="task-form"
+  [attr.aria-label]="i18n().tasks.form.panelTitle"
+>
   <mat-form-field appearance="outline" class="title-field">
-    <mat-label>Task title</mat-label>
+    <mat-label>{{ i18n().tasks.form.titleLabel }}</mat-label>
     <input
       matInput
       formControlName="title"
-      placeholder="What needs to be done?"
-      aria-label="Task title"
+      [placeholder]="i18n().tasks.form.titlePlaceholder"
+      [attr.aria-label]="i18n().tasks.form.titleLabel"
     />
     @if (form.controls.title.hasError('required') && form.controls.title.touched) {
-      <mat-error>Title is required</mat-error>
+      <mat-error>{{ i18n().tasks.form.titleRequired }}</mat-error>
     }
     @if (form.controls.title.hasError('maxlength')) {
-      <mat-error>Title cannot exceed 100 characters</mat-error>
+      <mat-error>{{ i18n().tasks.form.titleMaxLength }}</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="description-field">
-    <mat-label>Description</mat-label>
+    <mat-label>{{ i18n().tasks.form.descriptionLabel }}</mat-label>
     <textarea
       matInput
       formControlName="description"
-      placeholder="Optional description..."
+      [placeholder]="i18n().tasks.form.descriptionPlaceholder"
       rows="2"
-      aria-label="Task description"
+      [attr.aria-label]="i18n().tasks.form.descriptionLabel"
     ></textarea>
     @if (form.controls.description.hasError('maxlength')) {
-      <mat-error>Description cannot exceed 500 characters</mat-error>
+      <mat-error>{{ i18n().tasks.form.descriptionMaxLength }}</mat-error>
     }
   </mat-form-field>
 
@@ -34,9 +39,9 @@
     color="primary"
     type="submit"
     [disabled]="form.invalid || loading()"
-    aria-label="Add task"
+    [attr.aria-label]="i18n().tasks.form.addButton"
   >
     <mat-icon>add</mat-icon>
-    Add Task
+    {{ i18n().tasks.form.addButton }}
   </button>
 </form>

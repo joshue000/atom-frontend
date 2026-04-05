@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CreateTaskPayload } from '../../../../core/models/task.model';
+import { I18nService } from '../../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-task-form',
@@ -31,6 +32,7 @@ export class TaskFormComponent {
   @Output() taskSubmit = new EventEmitter<Omit<CreateTaskPayload, 'userId'>>();
 
   private readonly fb = inject(FormBuilder);
+  readonly i18n = inject(I18nService).t;
 
   readonly loading = signal(false);
 

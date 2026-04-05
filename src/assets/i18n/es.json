@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "ATOM Gestor de Tareas"
+  },
+  "auth": {
+    "login": {
+      "title": "Gestor de Tareas",
+      "subtitle": "Ingresá tu email para continuar",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "vos@ejemplo.com",
+      "emailRequired": "El email es obligatorio",
+      "emailInvalid": "Ingresá un email válido",
+      "continue": "Continuar"
+    },
+    "createUserDialog": {
+      "title": "Nueva cuenta",
+      "noAccountFound": "No se encontró una cuenta para",
+      "createQuestion": "¿Querés crear una nueva cuenta?",
+      "cancel": "Cancelar",
+      "createAccount": "Crear cuenta"
+    },
+    "errors": {
+      "somethingWentWrong": "Algo salió mal. Intentá de nuevo.",
+      "failedToCreate": "Error al crear la cuenta. Intentá de nuevo.",
+      "close": "Cerrar"
+    }
+  },
+  "tasks": {
+    "list": {
+      "title": "Mis tareas",
+      "signOut": "Cerrar sesión",
+      "searchLabel": "Buscar tareas",
+      "searchPlaceholder": "Buscar por título o descripción...",
+      "clearSearch": "Limpiar búsqueda",
+      "noResults": "No hay tareas que coincidan.",
+      "empty": "Sin tareas. ¡Creá una arriba!",
+      "loadError": "Error al cargar las tareas.",
+      "close": "Cerrar"
+    },
+    "form": {
+      "panelTitle": "Crear tarea",
+      "titleLabel": "Título de la tarea",
+      "titlePlaceholder": "¿Qué hay que hacer?",
+      "titleRequired": "El título es obligatorio",
+      "titleMaxLength": "El título no puede superar 100 caracteres",
+      "descriptionLabel": "Descripción",
+      "descriptionPlaceholder": "Descripción opcional...",
+      "descriptionMaxLength": "La descripción no puede superar 500 caracteres",
+      "addButton": "Agregar tarea",
+      "addSuccess": "¡Tarea agregada!",
+      "addError": "Error al agregar la tarea."
+    },
+    "card": {
+      "markPrefix": "Marcar",
+      "markAsCompleted": "como completada",
+      "markAsPending": "como pendiente",
+      "statusCompleted": "Completada",
+      "statusPending": "Pendiente",
+      "editTooltip": "Editar tarea",
+      "deleteTooltip": "Eliminar tarea",
+      "updateSuccess": "¡Tarea actualizada!",
+      "updateError": "Error al actualizar la tarea."
+    },
+    "editDialog": {
+      "title": "Editar tarea",
+      "titleLabel": "Título",
+      "titleRequired": "El título es obligatorio",
+      "descriptionLabel": "Descripción",
+      "cancel": "Cancelar",
+      "save": "Guardar"
+    },
+    "deleteDialog": {
+      "title": "Eliminar tarea",
+      "message": "¿Seguro que querés eliminar \"{{title}}\"?",
+      "confirmLabel": "Eliminar",
+      "deleteSuccess": "Tarea eliminada.",
+      "deleteError": "Error al eliminar la tarea."
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "darkMode": "Modo oscuro",
+    "language": "Idioma",
+    "open": "Configuración",
+    "close": "Cerrar configuración"
+  },
+  "pagination": {
+    "label": "Paginación de tareas",
+    "previous": "Página anterior",
+    "next": "Página siguiente",
+    "page": "Página"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  }
+}

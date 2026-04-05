@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Task, UpdateTaskPayload } from '../../../../core/models/task.model';
+import { I18nService } from '../../../../core/services/i18n.service';
 
 export interface TaskEditDialogData {
   task: Task;
@@ -25,6 +26,7 @@ export interface TaskEditDialogData {
 })
 export class TaskEditDialogComponent {
   private readonly fb = inject(FormBuilder);
+  readonly i18n = inject(I18nService).t;
 
   readonly form = this.fb.group({
     title: [this.data.task.title, [Validators.required, Validators.maxLength(100)]],

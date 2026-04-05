@@ -1,35 +1,41 @@
-<h2 mat-dialog-title>Edit Task</h2>
+<h2 mat-dialog-title>{{ i18n().tasks.editDialog.title }}</h2>
 <mat-dialog-content>
-  <form [formGroup]="form" (ngSubmit)="onSave()" aria-label="Edit task form">
+  <form [formGroup]="form" (ngSubmit)="onSave()" [attr.aria-label]="i18n().tasks.editDialog.title">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Title</mat-label>
-      <input matInput formControlName="title" aria-label="Task title" />
+      <mat-label>{{ i18n().tasks.editDialog.titleLabel }}</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        [attr.aria-label]="i18n().tasks.editDialog.titleLabel"
+      />
       @if (form.controls.title.hasError('required') && form.controls.title.touched) {
-        <mat-error>Title is required</mat-error>
+        <mat-error>{{ i18n().tasks.editDialog.titleRequired }}</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Description</mat-label>
+      <mat-label>{{ i18n().tasks.editDialog.descriptionLabel }}</mat-label>
       <textarea
         matInput
         formControlName="description"
         rows="3"
-        aria-label="Task description"
+        [attr.aria-label]="i18n().tasks.editDialog.descriptionLabel"
       ></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close aria-label="Cancel">Cancel</button>
+  <button mat-button mat-dialog-close [attr.aria-label]="i18n().tasks.editDialog.cancel">
+    {{ i18n().tasks.editDialog.cancel }}
+  </button>
   <button
     mat-flat-button
     color="primary"
     [disabled]="form.invalid"
     (click)="onSave()"
-    aria-label="Save changes"
+    [attr.aria-label]="i18n().tasks.editDialog.save"
   >
-    Save
+    {{ i18n().tasks.editDialog.save }}
   </button>
 </mat-dialog-actions>
 

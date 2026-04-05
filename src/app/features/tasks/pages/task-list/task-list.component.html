@@ -1,31 +1,45 @@
 <mat-toolbar color="primary" class="toolbar">
-  <span class="toolbar-title">My Tasks</span>
-  <button mat-icon-button (click)="onLogout()" matTooltip="Sign out" aria-label="Sign out">
+  <span class="toolbar-title">{{ i18n().tasks.list.title }}</span>
+  <button
+    mat-icon-button
+    (click)="onLogout()"
+    [matTooltip]="i18n().tasks.list.signOut"
+    [attr.aria-label]="i18n().tasks.list.signOut"
+  >
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
 
 <main class="content" role="main">
   <div class="static-area">
-    <mat-expansion-panel expanded class="form-panel" aria-label="Add new task">
+    <mat-expansion-panel
+      expanded
+      class="form-panel"
+      [attr.aria-label]="i18n().tasks.form.panelTitle"
+    >
       <mat-expansion-panel-header>
-        <mat-panel-title>Create task</mat-panel-title>
+        <mat-panel-title>{{ i18n().tasks.form.panelTitle }}</mat-panel-title>
       </mat-expansion-panel-header>
       <app-task-form #taskForm (taskSubmit)="onAddTask($event, taskForm)"></app-task-form>
     </mat-expansion-panel>
 
     <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search tasks</mat-label>
+      <mat-label>{{ i18n().tasks.list.searchLabel }}</mat-label>
       <mat-icon matPrefix>search</mat-icon>
       <input
         matInput
         [value]="searchTerm()"
         (input)="onSearch($event)"
-        placeholder="Search by title or description..."
-        aria-label="Search tasks"
+        [placeholder]="i18n().tasks.list.searchPlaceholder"
+        [attr.aria-label]="i18n().tasks.list.searchLabel"
       />
       @if (searchTerm()) {
-        <button matSuffix mat-icon-button (click)="searchTerm.set('')" aria-label="Clear search">
+        <button
+          matSuffix
+          mat-icon-button
+          (click)="searchTerm.set('')"
+          [attr.aria-label]="i18n().tasks.list.clearSearch"
+        >
           <mat-icon>close</mat-icon>
         </button>
       }
@@ -34,7 +48,7 @@
     <mat-divider></mat-divider>
   </div>
 
-  <section aria-label="Task list" class="list-section">
+  <section [attr.aria-label]="i18n().tasks.list.title" class="list-section">
     @if (loading()) {
       <div class="loading-state" role="status" aria-label="Loading tasks">
         <mat-spinner diameter="40"></mat-spinner>
@@ -45,16 +59,16 @@
           @if (searchTerm()) {
             <div class="empty-state" role="status">
               <mat-icon aria-hidden="true">search_off</mat-icon>
-              <p>No tasks match your search.</p>
+              <p>{{ i18n().tasks.list.noResults }}</p>
             </div>
           } @else {
             <div class="empty-state" role="status">
               <mat-icon aria-hidden="true">task_alt</mat-icon>
-              <p>No tasks yet. Add one above!</p>
+              <p>{{ i18n().tasks.list.empty }}</p>
             </div>
           }
         } @else {
-          <ul class="task-list" aria-label="Tasks">
+          <ul class="task-list" [attr.aria-label]="i18n().tasks.list.title">
             @for (task of tasks; track task.id) {
               <li>
                 <app-task-card

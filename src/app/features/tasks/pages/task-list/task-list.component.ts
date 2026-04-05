@@ -16,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TaskService } from '../../services/task.service';
 import { StorageService } from '../../../../core/services/storage.service';
+import { I18nService } from '../../../../core/services/i18n.service';
 import { TaskFormComponent } from '../../components/task-form/task-form.component';
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
@@ -63,6 +64,8 @@ export class TaskListComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly i18nService = inject(I18nService);
+  readonly i18n = this.i18nService.t;
 
   readonly loading = signal(true);
   readonly searchTerm = signal('');
@@ -98,7 +101,9 @@ export class TaskListComponent implements OnInit {
       },
       error: () => {
         this.loading.set(false);
-        this.snackBar.open('Failed to load tasks.', 'Close', { duration: 4000 });
+        this.snackBar.open(this.i18n().tasks.list.loadError, this.i18n().tasks.list.close, {
+          duration: 4000,
+        });
       },
     });
   }
@@ -120,19 +125,24 @@ export class TaskListComponent implements OnInit {
       next: () => {
         formRef.reset();
         formRef.setLoading(false);
-        this.snackBar.open('Task added!', undefined, { duration: 2000 });
+        this.snackBar.open(this.i18n().tasks.form.addSuccess, undefined, { duration: 2000 });
         this.loadPage(1);
       },
       error: () => {
         formRef.setLoading(false);
-        this.snackBar.open('Failed to add task.', 'Close', { duration: 4000 });
+        this.snackBar.open(this.i18n().tasks.form.addError, this.i18n().tasks.list.close, {
+          duration: 4000,
+        });
       },
     });
   }
 
   onToggleComplete(task: Task): void {
     this.taskService.updateTask(task.id, { completed: !task.completed }).subscribe({
-      error: () => this.snackBar.open('Failed to update task.', 'Close', { duration: 4000 }),
+      error: () =>
+        this.snackBar.open(this.i18n().tasks.card.updateError, this.i18n().tasks.list.close, {
+          duration: 4000,
+        }),
     });
   }
 
@@ -143,17 +153,22 @@ export class TaskListComponent implements OnInit {
     ref.afterClosed().subscribe((payload: UpdateTaskPayload | undefined) => {
       if (!payload) return;
       this.taskService.updateTask(task.id, payload).subscribe({
-        next: () => this.snackBar.open('Task updated!', undefined, { duration: 2000 }),
-        error: () => this.snackBar.open('Failed to update task.', 'Close', { duration: 4000 }),
+        next: () =>
+          this.snackBar.open(this.i18n().tasks.card.updateSuccess, undefined, { duration: 2000 }),
+        error: () =>
+          this.snackBar.open(this.i18n().tasks.card.updateError, this.i18n().tasks.list.close, {
+            duration: 4000,
+          }),
       });
     });
   }
 
   onDeleteTask(task: Task): void {
+    const t = this.i18n();
     const data: ConfirmDialogData = {
-      title: 'Delete Task',
-      message: `Are you sure you want to delete "${task.title}"?`,
-      confirmLabel: 'Delete',
+      title: t.tasks.deleteDialog.title,
+      message: this.i18nService.interpolate(t.tasks.deleteDialog.message, { title: task.title }),
+      confirmLabel: t.tasks.deleteDialog.confirmLabel,
     };
     const ref = this.dialog.open(ConfirmDialogComponent, { data, width: '380px' });
 
@@ -161,10 +176,17 @@ export class TaskListComponent implements OnInit {
       if (!confirmed) return;
       this.taskService.deleteTask(task.id).subscribe({
         next: () => {
-          this.snackBar.open('Task deleted.', undefined, { duration: 2000 });
+          this.snackBar.open(this.i18n().tasks.deleteDialog.deleteSuccess, undefined, {
+            duration: 2000,
+          });
           this.loadPage(this.currentPage());
         },
-        error: () => this.snackBar.open('Failed to delete task.', 'Close', { duration: 4000 }),
+        error: () =>
+          this.snackBar.open(
+            this.i18n().tasks.deleteDialog.deleteError,
+            this.i18n().tasks.list.close,
+            { duration: 4000 },
+          ),
       });
     });
   }

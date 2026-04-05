@@ -4,7 +4,11 @@
       <mat-checkbox
         [checked]="task.completed"
         [attr.aria-label]="
-          'Mark ' + task.title + ' as ' + (task.completed ? 'pending' : 'completed')
+          i18n().tasks.card.markPrefix +
+          ' ' +
+          task.title +
+          ' ' +
+          (task.completed ? i18n().tasks.card.markAsPending : i18n().tasks.card.markAsCompleted)
         "
         (change)="toggleComplete.emit(task)"
         color="primary"
@@ -16,7 +20,9 @@
             {{ task.title }}
           </h3>
           <span class="status-badge" [class.completed]="task.completed">
-            {{ task.completed ? 'Completed' : 'Pending' }}
+            {{
+              task.completed ? i18n().tasks.card.statusCompleted : i18n().tasks.card.statusPending
+            }}
           </span>
         </div>
         @if (task.description) {
@@ -32,8 +38,8 @@
       <button
         mat-icon-button
         (click)="editTask.emit(task)"
-        matTooltip="Edit task"
-        aria-label="Edit task"
+        [matTooltip]="i18n().tasks.card.editTooltip"
+        [attr.aria-label]="i18n().tasks.card.editTooltip"
       >
         <mat-icon>edit</mat-icon>
       </button>
@@ -41,8 +47,8 @@
         mat-icon-button
         color="warn"
         (click)="deleteTask.emit(task)"
-        matTooltip="Delete task"
-        aria-label="Delete task"
+        [matTooltip]="i18n().tasks.card.deleteTooltip"
+        [attr.aria-label]="i18n().tasks.card.deleteTooltip"
       >
         <mat-icon>delete</mat-icon>
       </button>

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { I18nService } from '../../../../core/services/i18n.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +39,7 @@ export class LoginComponent {
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
+  readonly i18n = inject(I18nService).t;
 
   readonly loading = signal(false);
 
@@ -63,9 +65,13 @@ export class LoginComponent {
         if (err.status === 404) {
           this.openCreateUserDialog(email);
         } else {
-          this.snackBar.open('Something went wrong. Please try again.', 'Close', {
-            duration: 4000,
-          });
+          this.snackBar.open(
+            this.i18n().auth.errors.somethingWentWrong,
+            this.i18n().auth.errors.close,
+            {
+              duration: 4000,
+            },
+          );
         }
       },
     });
@@ -96,7 +102,7 @@ export class LoginComponent {
       },
       error: () => {
         this.loading.set(false);
-        this.snackBar.open('Failed to create account. Please try again.', 'Close', {
+        this.snackBar.open(this.i18n().auth.errors.failedToCreate, this.i18n().auth.errors.close, {
           duration: 4000,
         });
       },

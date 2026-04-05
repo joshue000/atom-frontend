@@ -1,10 +1,10 @@
-<nav class="pagination" aria-label="Task list pagination">
+<nav class="pagination" [attr.aria-label]="i18n().pagination.label">
   <button
     mat-icon-button
     class="nav-btn"
     [disabled]="page === 1"
     (click)="goTo(page - 1)"
-    aria-label="Previous page"
+    [attr.aria-label]="i18n().pagination.previous"
   >
     <mat-icon>chevron_left</mat-icon>
   </button>
@@ -19,7 +19,7 @@
           [color]="item === page ? 'primary' : undefined"
           class="page-btn"
           (click)="goTo(item)"
-          [attr.aria-label]="'Page ' + item"
+          [attr.aria-label]="i18n().pagination.page + ' ' + item"
           [attr.aria-current]="item === page ? 'page' : null"
           role="listitem"
         >
@@ -36,7 +36,7 @@
     class="nav-btn"
     [disabled]="page === numberOfPages"
     (click)="goTo(page + 1)"
-    aria-label="Next page"
+    [attr.aria-label]="i18n().pagination.next"
   >
     <mat-icon>chevron_right</mat-icon>
   </button>

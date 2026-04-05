@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.6
+**Date:** 2026-04-04
+**Description:** Added i18n support (English/Spanish). All hardcoded UI strings extracted to src/assets/i18n/en.json and es.json. I18nService provides a reactive computed signal (t) consumed by all components via OnPush. Language preference is persisted to localStorage. Language switcher (EN/ES buttons) added to the settings panel, replacing the "coming soon" placeholder.
+
 ## 1.0.5
 **Date:** 2026-04-04
 **Description:** Added dark mode support via ThemeService (persisted to localStorage, respects prefers-color-scheme on first visit). Added floating SettingsPanelComponent (FAB bottom-right) with dark mode toggle and a Language placeholder marked as coming soon. Panel closes on Escape key.

@@ -1,30 +1,34 @@
 <div class="login-container">
   <mat-card class="login-card">
     <mat-card-header>
-      <mat-card-title>Task Manager</mat-card-title>
-      <mat-card-subtitle>Enter your email to continue</mat-card-subtitle>
+      <mat-card-title>{{ i18n().auth.login.title }}</mat-card-title>
+      <mat-card-subtitle>{{ i18n().auth.login.subtitle }}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()" aria-label="Login form">
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email address</mat-label>
+          <mat-label>{{ i18n().auth.login.emailLabel }}</mat-label>
           <input
             matInput
             type="email"
             formControlName="email"
-            placeholder="you@example.com"
+            [placeholder]="i18n().auth.login.emailPlaceholder"
             autocomplete="email"
-            aria-label="Email address"
+            [attr.aria-label]="i18n().auth.login.emailLabel"
             [attr.aria-describedby]="
               form.controls.email.invalid && form.controls.email.touched ? 'email-error' : null
             "
           />
           @if (form.controls.email.hasError('required') && form.controls.email.touched) {
-            <mat-error id="email-error" role="alert">Email is required</mat-error>
+            <mat-error id="email-error" role="alert">{{
+              i18n().auth.login.emailRequired
+            }}</mat-error>
           }
           @if (form.controls.email.hasError('email') && form.controls.email.touched) {
-            <mat-error id="email-error" role="alert">Enter a valid email address</mat-error>
+            <mat-error id="email-error" role="alert">{{
+              i18n().auth.login.emailInvalid
+            }}</mat-error>
           }
         </mat-form-field>
 
@@ -34,12 +38,12 @@
           type="submit"
           class="full-width submit-btn"
           [disabled]="loading()"
-          aria-label="Continue"
+          [attr.aria-label]="i18n().auth.login.continue"
         >
           @if (loading()) {
             <mat-spinner diameter="20" aria-label="Loading"></mat-spinner>
           } @else {
-            Continue
+            {{ i18n().auth.login.continue }}
           }
         </button>
       </form>

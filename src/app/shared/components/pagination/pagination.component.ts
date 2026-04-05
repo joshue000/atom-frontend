@@ -5,9 +5,11 @@ import {
   Input,
   OnChanges,
   Output,
+  inject,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-pagination',
@@ -22,6 +24,7 @@ export class PaginationComponent implements OnChanges {
   @Input() numberOfPages = 1;
   @Output() pageChange = new EventEmitter<number>();
 
+  readonly i18n = inject(I18nService).t;
   pages: (number | '...')[] = [];
 
   ngOnChanges(): void {
