@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.7
+**Date:** 2026-04-05
+**Description:** Added Docker support for local development. New Dockerfile runs ng serve with --host 0.0.0.0 and --poll 2000 for hot reload inside the container. Added docker build and serve configurations to angular.json. New environment.docker.ts points apiUrl to http://localhost:3000/api (the local functions container).
+
 ## 1.0.6
 **Date:** 2026-04-04
 **Description:** Added i18n support (English/Spanish). All hardcoded UI strings extracted to src/assets/i18n/en.json and es.json. I18nService provides a reactive computed signal (t) consumed by all components via OnPush. Language preference is persisted to localStorage. Language switcher (EN/ES buttons) added to the settings panel, replacing the "coming soon" placeholder.
