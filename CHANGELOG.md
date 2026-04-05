@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.5
+**Date:** 2026-04-04
+**Description:** Added dark mode support via ThemeService (persisted to localStorage, respects prefers-color-scheme on first visit). Added floating SettingsPanelComponent (FAB bottom-right) with dark mode toggle and a Language placeholder marked as coming soon. Panel closes on Escape key.
+
 ## 1.0.4
 **Date:** 2026-04-04
 **Description:** Added pagination feature. TaskService now sends limit and offset params and parses the paginated response. New PaginationComponent (standalone) with prev/next buttons and numbered page buttons. On desktop shows first, last, and sibling pages with ellipsis gaps. On mobile hides all numbers and shows only prev/ellipsis/next. Pagination is pinned below the task list and not affected by the vertical scroll. Create and delete operations reload the list to keep pagination state consistent.

@@ -1,11 +1,22 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ThemeService } from './core/services/theme.service';
+import { SettingsPanelComponent } from './shared/components/settings-panel/settings-panel.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet],
-  template: '<router-outlet></router-outlet>',
+  imports: [RouterOutlet, SettingsPanelComponent],
+  template: `
+    <router-outlet></router-outlet>
+    <app-settings-panel></app-settings-panel>
+  `,
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  private readonly themeService = inject(ThemeService);
+
+  ngOnInit(): void {
+    this.themeService.init();
+  }
+}
