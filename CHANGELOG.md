@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.9
+**Date:** 2026-04-05
+**Description:** Added README.md documenting architecture decisions (standalone components, OnPush, signal-based i18n, functional guards/interceptors, M2 theming rationale, dark mode palette choice), project structure, local development options (Docker and manual), Firebase setup, environment configuration, testing strategy, and CI/CD pipeline.
+
 ## 1.0.8
 **Date:** 2026-04-05
 **Description:** Fixed dark mode input highlight contrast. Replaced indigo primary palette with light-blue and pink accent with cyan in the dark theme definition. Indigo is a mid-dark color that blends into dark backgrounds; light-blue and cyan are high-contrast on dark surfaces.
